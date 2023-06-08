@@ -1,0 +1,221 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/v1/cars":
+    get:
+      summary: list cars
+      tags:
+      - list all of the cars
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    brand:
+                      type: string
+                    image:
+                      type: string
+                    lending_fee:
+                      type: float
+                    description:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - brand
+                  - image
+                  - lending_fee
+                  - description
+  "/api/v1/cars/{id}":
+    parameters:
+    - name: id
+      in: path
+      description: Car id
+      required: true
+      schema:
+        type: string
+    get:
+      summary: show Car
+      tags:
+      - get single Car detail
+      responses:
+        '200':
+          description: successful
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    name:
+                      type: string
+                    brand:
+                      type: string
+                    image:
+                      type: string
+                    lending_fee:
+                      type: integer
+                    description:
+                      type: string
+                  required:
+                  - id
+                  - name
+                  - brand
+                  - image
+                  - lending_fee
+                  - description
+  "/api/v1/users/{user_id}/reservations":
+    get:
+      summary: Get user car reservations
+      tags:
+      - List reservations
+      parameters:
+      - name: user_id
+        in: path
+        description: user_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Empty array
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    reservation_date:
+                      type: date
+                    user_id:
+                      type: integer
+                    car_id:
+                      type: integer
+                    required:
+                    - id
+                    - user_id
+                    - car_id
+                    - reservation_date
+    post:
+      summary: Book a ride
+      tags:
+      - Make Car booking
+      parameters:
+      - name: user_id
+        in: path
+        description: Current User ID
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: Reservation created successfully
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reservation_date:
+                  type: date
+                user_id:
+                  type: integer
+                car_id:
+                  type: integer
+              required:
+              - reservation_date
+              - user_id
+              - car_id
+  "/signup":
+    post:
+      summary: Sign up
+      tags:
+      - Register new user
+      parameters: []
+      responses:
+        '200':
+          description: Signed up sucessfully.
+        '422':
+          description: Sorry, user couldn't be created.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  type: object
+                  properties:
+                    full_name:
+                      type: string
+                    email:
+                      type: string
+                    password:
+                      type: string
+              required:
+              - full_name
+              - email
+              - password
+  "/login":
+    post:
+      summary: Sign in User
+      tags:
+      - Login
+      parameters: []
+      responses:
+        '200':
+          description: User logged in successfully
+        '401':
+          description: Logged in failure
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+              - email
+              - password
+  "/logout":
+    delete:
+      summary: Sign out User
+      tags:
+      - Logout
+      parameters:
+      - name: Authorization
+        in: header
+        description: Authorization JWT Token (Check Response Headers in login or register)
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Logged out successfull
+        '401':
+          description: Authorization token is invalid
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com
