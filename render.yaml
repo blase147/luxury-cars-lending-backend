@@ -1,7 +1,7 @@
 databases:
   - name: luxury cars lending
-    databaseName: mysite
-    user: mysite
+    databaseName: luxury cars lending
+    user: luxury cars lending
 
 services:
   - type: web
