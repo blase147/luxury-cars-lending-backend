@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/api-docs'
   mount Rswag::Api::Engine => '/api-docs'
 
+  root 'cars#index'
   get '/current_user', to: 'current_user#index'
 
   namespace :api do
