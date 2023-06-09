@@ -6,6 +6,10 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.cache_classes = true
 
+
+
+  config.assets.js_compressor = :uglifier
+
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -57,7 +61,8 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
-  # Ignore bad email addresses and do not raise email delivery errors.
+  # Ignore bad email
+  ddresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
